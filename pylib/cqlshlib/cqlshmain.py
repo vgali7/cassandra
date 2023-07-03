@@ -1826,9 +1826,9 @@ class Shell(cmd.Cmd):
                 doc = getattr(self, 'do_' + t.lower()).__doc__
                 self.stdout.write(doc + "\n")
             elif t.lower() in cqldocs.get_help_topics():
-                urlpart, tag = cqldocs.get_help_topic(t)
+                urlpart = cqldocs.get_help_topic(t)
                 if urlpart is not None:
-                    url = "%s/%s.html#%s" % (CASSANDRA_CQL_HTML, urlpart, tag)
+                    url = "%s#%s" % (CASSANDRA_CQL_HTML, urlpart)
                     if self.browser is not None:
                         opened = webbrowser.get(self.browser).open_new_tab(url)
                     else:
