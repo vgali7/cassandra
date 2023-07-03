@@ -1826,9 +1826,9 @@ class Shell(cmd.Cmd):
                 doc = getattr(self, 'do_' + t.lower()).__doc__
                 self.stdout.write(doc + "\n")
             elif t.lower() in cqldocs.get_help_topics():
-                urlpart = cqldocs.get_help_topic(t)
+                urlpart, tag = cqldocs.get_help_topic(t)
                 if urlpart is not None:
-                    url = "%s#%s" % (CASSANDRA_CQL_HTML, urlpart)
+                    url = "%s/%s.html#%s" % (CASSANDRA_CQL_HTML, urlpart, tag)
                     if self.browser is not None:
                         opened = webbrowser.get(self.browser).open_new_tab(url)
                     else:
@@ -2227,7 +2227,7 @@ def setup_cqldocs(cqlmodule):
 
 def setup_docspath(path):
     global CASSANDRA_CQL_HTML
-    CASSANDRA_CQL_HTML_FALLBACK = 'https://cassandra.apache.org/doc/latest/cql/index.html'
+    CASSANDRA_CQL_HTML_FALLBACK = "https://cassandra.apache.org/doc/4.1/cassandra/cql/cql_singlefile.html"
     #
     # default location of local CQL.html
     if os.path.exists(path + '/doc/cql3/CQL.html'):
